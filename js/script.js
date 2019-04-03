@@ -16,7 +16,11 @@ FSJS project 2 - List Filter and Pagination
    will only be used inside of a function, then it can be locally 
    scoped to that function.
 ***/
+const studentList = document.getElementsByClassName('student-item');
 
+const page = document.getElementsByClassName('page')
+const maxItems = 10
+const maxPages = Math.ceil(studentList.length / maxItems);
 
 
 
@@ -34,9 +38,22 @@ FSJS project 2 - List Filter and Pagination
        that will be passed into the parens later when you call or 
        "invoke" the function 
 ***/
+const showPage = (studentList,page)=>{
+   const lastItem = (page * 9);
+   const firstItem = (lastItem - 9);
+   for (let i = 0; i < studentList.length; i++){
+      if( i >= firstItem && i <=lastItem ){
+         studentList[i].style.display = 'block';
+      }else {
+         studentList[i].style.display = 'none';
 
+      }
 
+   }
 
+}
+
+showPage(studentList,1);
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
