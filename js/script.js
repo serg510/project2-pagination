@@ -1,44 +1,18 @@
-/******************************************
-Treehouse Techdegree:
-FSJS project 2 - List Filter and Pagination
-******************************************/
-   
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
 
-
-/*** 
-   Add your global variables that store the DOM elements you will 
-   need to reference and/or manipulate. 
-   
-   But be mindful of which variables should be global and which 
-   should be locally scoped to one of the two main functions you're 
-   going to create. A good general rule of thumb is if the variable 
-   will only be used inside of a function, then it can be locally 
-   scoped to that function.
-***/
 const studentList = document.getElementsByClassName('student-item');
 
+const page = document.getElementsByClassName('page')
+const maxItems = 10
+const maxPages = Math.ceil(studentList.length / maxItems);
+const aTag = document.getElementsByTagName('a');
 
 
 
 
 
-/*** 
-   Create the `showPage` function to hide all of the items in the 
-   list except for the ten you want to show.
 
-   Pro Tips: 
-     - Keep in mind that with a list of 54 students, the last page 
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when 
-       you initially define the function, and it acts as a variable 
-       or a placeholder to represent the actual function `argument` 
-       that will be passed into the parens later when you call or 
-       "invoke" the function 
-***/
 const showPage = (studentList,page)=>{
-   const lastItem = (page * 9);
+   const lastItem = ((page * 10)-1);
    const firstItem = (lastItem - 9);
    for (let i = 0; i < studentList.length; i++){
       if( i >= firstItem && i <=lastItem ){
@@ -52,32 +26,49 @@ const showPage = (studentList,page)=>{
 
 }
 
-showPage(studentList,1);
+ 
 
-/*** 
-   Create the `appendPageLinks function` to generate, append, and add 
-   functionality to the pagination buttons.
-***/
-const page = document.getElementsByClassName('page')
-const maxItems = 10
-const maxPages = Math.ceil(studentList.length / maxItems);
-
-const createElement(type){
-
-   
-} 
-
-const appendPageLinks = (studentList) => {
-
+const appendPageLinks = () => {
+    //create div class="pagination"
    const newDiv = document.createElement('div');
    newDiv.className = 'pagination';
+   //append div to .page div
+   const page = document.getElementsByClassName('page')[0];
    page.appendChild(newDiv);
-   const ul = document.createElement('ul > li > a');
+   //add ul to .pagination
+   const ul = document.createElement('ul');
    newDiv.appendChild(ul);
+   //for every page, add li and a tags with page number text
+   for (let i = 1 ; i <= maxPages; i++){
+     //create li and a
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+       //add page number to a
+       a.textContent = i;
+       //append a to li
+       li.appendChild(a);
+       //append li to ul
+       ul.appendChild(li);
+       aTag[0].classList.add('active');
+      //add event listener to each a
+       
+       for(let i =0; i < aTag.length; i++ ){
+         aTag[i].addEventListener('click', e => {
+         const pageNumber = Number(e.target.textContent);
 
-
+         //e is the click event
+         //e.target is the a clicked on
+         //e.target.textContent is the page number of the a
+         //Number() changes the string to a number
+         showPage(studentList,pageNumber);  
+         //sending a number to the showPage() function
+        
+       }
+         
+     );	
+  }   
+ } 
 }
 
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+appendPageLinks();
+showPage(studentList,1); //we want the first page to show
