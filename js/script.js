@@ -11,17 +11,21 @@ const input = document.createElement('input');
 const button = document.createElement('button');
 const newInputDiv = document.querySelectorAll('.page-header')
 
-// search/filter   <--- some code from w3 schools
-const searchFilter = () => {
+// search/filter   <--- code from w3 school and simple search warmup--->
+const searchFunction = () => {
    newInputDiv.appendChild(filterDiv);
-   filterDiv.classList.add ='filter';
+   filterDiv.classList.add ='search';
    filterDiv.appendChild(input)
+   input.type = 'text';
+   input.placeholder = 'Search'
    filterDiv.appendChild(button)
-   console.log('hello')
+   button.type = 'submit';
+   
+   
 };
 
 
-searchFilter();
+
 
 const showPage = (studentList,page)=>{
    const lastItem = ((page * 10)-1);
@@ -74,7 +78,11 @@ const appendPageLinks = () => {
          //Number() changes the string to a number
          showPage(studentList,pageNumber);  
          //sending a number to the showPage() function
-        
+         for (let i = 0; i < aTag.length ; i++) {                      
+               
+            aTag[i].classList.remove("active");                       
+         }
+            e.target.classList.add("active");    
        }
          
      );	
@@ -84,3 +92,4 @@ const appendPageLinks = () => {
 
 appendPageLinks();
 showPage(studentList,1); //we want the first page to show
+
