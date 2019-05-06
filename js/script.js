@@ -5,11 +5,23 @@ const page = document.getElementsByClassName('page')
 const maxItems = 10
 const maxPages = Math.ceil(studentList.length / maxItems);
 const aTag = document.getElementsByTagName('a');
+//search / filter variables
+const filterDiv = document.createElement('div');
+const input = document.createElement('input');
+const button = document.createElement('button');
+const newInputDiv = document.querySelectorAll('.page-header')
+
+// search/filter   <--- some code from w3 schools
+const searchFilter = () => {
+   newInputDiv.appendChild(filterDiv);
+   filterDiv.classList.add ='filter';
+   filterDiv.appendChild(input)
+   filterDiv.appendChild(button)
+   console.log('hello')
+};
 
 
-
-
-
+searchFilter();
 
 const showPage = (studentList,page)=>{
    const lastItem = ((page * 10)-1);
