@@ -64,14 +64,14 @@ function filterNames(){
       let h3 = li[i].getElementsByTagName('h3')[0];
       
       // if matched
-      if( h3.innerHTML.toUpperCase().indexOf(filterValue)> -1){
+      if( h3.innerHTML.toUpperCase().includes(filterValue)){
          searchResults.push(li[i]);
          li[i].style.display = '';
       } else {
          noName.style.display = 'none'                                    
       }
 }                                                    
-      showPage(searchResults,1);                                                     
+      showPage(searchResults,1);                                                   
 }
 //add Event Listeners///
 input.addEventListener('keyup', filterNames);                                 
