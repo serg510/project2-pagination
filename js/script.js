@@ -5,27 +5,77 @@ const page = document.getElementsByClassName('page')
 const maxItems = 10
 const maxPages = Math.ceil(studentList.length / maxItems);
 const aTag = document.getElementsByTagName('a');
-//search / filter variables
+//search variables
 const filterDiv = document.createElement('div');
 const input = document.createElement('input');
+
 const button = document.createElement('button');
-const newInputDiv = document.querySelectorAll('.page-header')
+const newInputDiv = document.querySelectorAll('.page-header')[0]
+//filter variables
+const ul = document.querySelector('ul');
+ul.setAttribute('id','names');
+const noName = document.createElement('div');
+noName.textContent = "No Matches Found"
+newInputDiv.appendChild(noName);
+noName.style.display = 'none';
 
 // search/filter   <--- code from w3 school and simple search warmup--->
-const searchFunction = () => {
+// function to search for a specific person
+searchFunction = () => {
    newInputDiv.appendChild(filterDiv);
-   filterDiv.classList.add ='search';
+   newInputDiv.classList.add('pagination')
+   filterDiv.classList.add('search');
    filterDiv.appendChild(input)
+   input.setAttribute('id','search-input')
    input.type = 'text';
-   input.placeholder = 'Search'
+   input.placeholder = 'Search For Students'
    filterDiv.appendChild(button)
    button.type = 'submit';
+   button.textContent = 'SEARCH';
+   button.setAttribute('id','search-button')
    
    
 };
 
+searchFunction();
+
+let filterInput = document.getElementById('search-input');
 
 
+
+
+
+//help from traversy media https://youtu.be/G1eW3Oi6uoc
+
+function filterNames(){
+   document.getElementsByClassName("pagination")[0].innerHTML = ' ';
+   filterValue = filterInput.value.toUpperCase();
+
+   //get student list ul 
+   let ul = document.getElementById('names');
+
+   //get li from ul
+   let li = ul.querySelectorAll('li.student-item');
+
+   const searchResults = [];
+
+   //loop through student-item
+   for(let i =0; i < li.length; i++){
+      let h3 = li[i].getElementsByTagName('h3')[0];
+      
+      // if matched
+      if( h3.innerHTML.toUpperCase().indexOf(filterValue)> -1){
+         searchResults.push(li[i]);
+         li[i].style.display = '';
+      } else {
+         noName.style.display = 'none'                                    
+      }
+}                                                    
+      showPage(searchResults,1);                                                     
+}
+//add Event Listeners///
+input.addEventListener('keyup', filterNames);                                 
+button.addEventListener('click', filterNames);   
 
 const showPage = (studentList,page)=>{
    const lastItem = ((page * 10)-1);
@@ -90,6 +140,7 @@ const appendPageLinks = () => {
  } 
 }
 
-appendPageLinks();
+
 showPage(studentList,1); //we want the first page to show
+appendPageLinks(studentList);
 
